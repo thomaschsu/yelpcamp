@@ -8,8 +8,12 @@ app.use(express.static('public'))
 
 let campgrounds = [
     { name: 'Salmon Creek', image: 'images/camp1.jpg' },
-    { name: 'Granite Hill', image: 'images/camp1.jpg' },
-    { name: 'Mountain Goat\'s Rest', image: 'images/camp1.jpg' }
+    { name: 'Granite Hill', image: 'images/camp2.jpg' },
+    { name: 'Mountain Goat\'s Rest', image: 'images/camp3.jpg' },
+    { name: 'Mountain Goat\'s Rest', image: 'images/camp3.jpg' },
+    { name: 'Salmon Creek', image: 'images/camp1.jpg' },
+    { name: 'Granite Hill', image: 'images/camp2.jpg' },
+    { name: 'Mountain Goat\'s Rest', image: 'images/camp3.jpg' }
 ];
 
 app.get('/', function(req, res){

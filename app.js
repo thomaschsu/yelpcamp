@@ -12,12 +12,13 @@ app.use(express.static('public'))
 // SCHEMA SETUP
 let campgroundSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: String,
+    description: String
 });
 
 let Campground = mongoose.model('Campground', campgroundSchema);
 
-// Campground.create({name: 'Granite Hill', image: 'images/camp2.jpg'}, function(err, res){
+// Campground.create({name: 'Granite Hill', image: 'images/camp2.jpg', description: 'Thi is a huge granite hill, no bathrooms. No water. Beautiful granite!'}, function(err, res){
 //     if(err) {
 //         console.log(err);
 //     } else {
@@ -45,7 +46,7 @@ app.get('/campgrounds', function(req, res){
         if(err) {
             console.log(err);
         } else {
-            res.render('campgrounds', { campgrounds: allCampgrounds });
+            res.render('index', { campgrounds: allCampgrounds });
         }
     })
 });
@@ -54,7 +55,8 @@ app.post('/campgrounds', function(req, res){
     // get data from form and add to campgrounds array
     let name = req.body.name;
     let image = req.body.image;
-    let newCampground = {name: name, image: image}
+    let desc = req.body.description;
+    let newCampground = {name: name, image: image, description: desc}
     // campgrounds.push(newCampground)
     // Create a new campground and save to DB
     Campground.create(newCampground, function(err, newlyCreated){
@@ -69,6 +71,20 @@ app.post('/campgrounds', function(req, res){
 
 app.get('/campgrounds/new', function(req, res){
     res.render('new');
+});
+
+// Show - shows more info about one campground
+app.get('/campgrounds/:id', function(req, res){
+    // Find the campground with provided ID
+    Campground.findById(req.params.id, function(err, foundCampground){
+        if (err) {
+            console.log(err);
+        } else {
+            // Render show template with that campground
+            res.render('show', {campground: foundCampground});
+        }
+    });
+
 });
 
 app.listen(3000, function(){
